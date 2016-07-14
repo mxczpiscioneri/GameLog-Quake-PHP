@@ -107,7 +107,14 @@ class ParserLog {
     }
 
     private function clientUserinfoChanged($row) {
-        
+        $player = explode('\t\\', $row['params'], 2);
+        $player = explode(' n\\', $player[0], 2);
+
+        //check if player's name exists
+        if (!in_array($player[1], $this->game->getPlayers())) {
+            //set name player
+            $this->game->setPlayers($player[1]);
+        }
     }
 
     private function kill($row) {
