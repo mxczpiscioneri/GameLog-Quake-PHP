@@ -43,4 +43,35 @@ class ParserLog {
         }
     }
 
+    private function readLog($log) {
+
+        //while end-of-file is false
+        while (!feof($log)) {
+            //read line of file
+            $row = $this->getRow($log);
+
+        }
+    }
+
+    private function getRow($file) {
+        //get row from file
+        $row = fgets($file, 4096);
+
+        //if row is not empty
+        if (!empty($row)) {
+            $params = explode(":", trim($row), 3);
+
+            $time = explode(" ", $params[0], 2);
+            $time = isset($time[1]) ? $time[1] : $time[0];
+            $time = trim($time . ":" . $params[1]);
+            $time_command = explode(" ", $time, 2);
+
+            $result['params'] = isset($params[2]) ? $params[2] : '';
+            $result['time'] = $time_command[0];
+            $result['command'] = $time_command[1];
+            return $result;
+        }
+        return false;
+    }
+
 }
