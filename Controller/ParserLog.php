@@ -8,6 +8,7 @@ class ParserLog {
     private $fileName;
     private $jsonGame = array();
     private $countGame = 0;
+    private $game;
 
     public function __construct($fileName) {
         $this->fileName = $fileName;
@@ -93,7 +94,16 @@ class ParserLog {
     }
 
     private function initGame($row) {
-        
+        $this->game = new GameClass();
+
+        //add 1 to set gameID
+        $this->countGame ++;
+
+        //set time start
+        $this->game->setStart_time($row['time']);
+
+        //set id game
+        $this->game->setId($this->countGame);
     }
 
     private function clientUserinfoChanged($row) {
