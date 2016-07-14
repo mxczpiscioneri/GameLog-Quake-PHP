@@ -50,6 +50,24 @@ class ParserLog {
             //read line of file
             $row = $this->getRow($log);
 
+            //compare the log command
+            switch ($row['command']) {
+                case 'InitGame':
+                    $this->initGame($row);
+                    break;
+                case 'ClientUserinfoChanged':
+                    $this->clientUserinfoChanged($row);
+                    break;
+                case 'Kill':
+                    $this->kill($row);
+                    break;
+                case '------------------------------------------------------------':
+                case 'ShutdownGame':
+                    $this->shutdownGame($row);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -72,6 +90,22 @@ class ParserLog {
             return $result;
         }
         return false;
+    }
+
+    private function initGame($row) {
+        
+    }
+
+    private function clientUserinfoChanged($row) {
+        
+    }
+
+    private function kill($row) {
+        
+    }
+
+    private function shutdownGame($row) {
+        
     }
 
 }
