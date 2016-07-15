@@ -169,4 +169,16 @@ class ParserLog {
         }
     }
 
+    public function showJsonGame() {
+        foreach ($this->jsonGame as $value) {
+            echo '<pre>';
+            echo $value;
+            echo '</pre>';
+        }
+    }
+
+    public function getJsonGame() {
+        return $this->jsonGame;
+    }
+
 }
