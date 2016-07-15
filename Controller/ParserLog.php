@@ -140,7 +140,20 @@ class ParserLog {
     }
 
     private function shutdownGame($row) {
-        
+        if (isset($this->game)) {
+            //set kills
+            $this->game->setKills($this->kills);
+
+            //set kills by means
+            $this->game->setMeans($this->means);
+
+            //set time end
+            $this->game->setEnd_time($row['time']);
+
+            //set json game in array
+            $this->jsonGame[] = $this->game->toJSON();
+            unset($this->game);
+        }
     }
 
     private function setKill($p_killer, $p_killed) {
