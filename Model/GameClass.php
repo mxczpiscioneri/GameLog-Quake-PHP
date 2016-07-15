@@ -74,7 +74,16 @@ class GameClass {
     }
 
     public function toJSON() {
-        return json_encode(get_object_vars($this));
+        $data = array(
+            'start_time' => $this->getStart_time(),
+            'end_time' => $this->getEnd_time(),
+            'total_kills' => $this->getTotal_kills(),
+            'players' => $this->getPlayers(),
+            'kills' => $this->getKills(),
+            'means' => $this->getMeans()
+        );
+        $game = array('game_' . $this->getId() => $data);
+        return json_encode($game, JSON_PRETTY_PRINT);
     }
 
 }
