@@ -40,4 +40,11 @@ class ParserLogApiTest extends PHPUnit_Framework_TestCase {
         $this->assertEmpty($response);
     }
 
+    public function testGetParserIdInvalid() {
+        $options = array('http' => array('method' => 'PUT'));
+        $context = stream_context_create($options);
+        $response = file_get_contents('http://localhost/gamelog/api/1234', false, $context);
+        $this->assertEmpty($response);
+    }
+
 }
