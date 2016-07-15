@@ -10,6 +10,7 @@ class ParserLog {
     private $countGame = 0;
     private $game;
     private $kills;
+    private $means;
 
     public function __construct($fileName) {
         $this->fileName = $fileName;
@@ -97,6 +98,7 @@ class ParserLog {
     private function initGame($row) {
         $this->game = new GameClass();
         $this->kills = array();
+        $this->means = array();
 
         //add 1 to set gameID
         $this->countGame ++;
@@ -132,6 +134,9 @@ class ParserLog {
 
         //add killer and killed
         $this->setKill($p_killer, $p_killed);
+
+        //add kills by means
+        $this->means[$mod] = (isset($this->means[$mod]) ? $this->means[$mod] : 0) + 1;
     }
 
     private function shutdownGame($row) {

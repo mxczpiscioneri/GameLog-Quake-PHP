@@ -11,6 +11,7 @@ class GameClass {
     private $total_kills;
     private $players = array();
     private $kills = array();
+    private $means = array();
 
     public function getId() {
         return $this->id;
@@ -25,7 +26,7 @@ class GameClass {
     }
 
     public function getTotal_kills() {
-        return $this->total_kills;
+        return is_null($this->total_kills) ? 0 : $this->total_kills;
     }
 
     public function getPlayers() {
@@ -34,6 +35,10 @@ class GameClass {
 
     public function getKills() {
         return $this->kills;
+    }
+
+    function getMeans() {
+        return $this->means;
     }
 
     public function setId($id) {
@@ -57,7 +62,11 @@ class GameClass {
     }
 
     public function setKills($kills) {
-        $this->kills[] = $kills;
+        $this->kills = $kills;
+    }
+
+    function setMeans($means) {
+        $this->means = $means;
     }
 
     public function addKill() {
