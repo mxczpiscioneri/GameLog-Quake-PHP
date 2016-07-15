@@ -1,0 +1,1 @@
+<?php/** * @author Matheus Pisiconeri */require_once './ParserLogApi.php';$parser = new ParserLogApi();
