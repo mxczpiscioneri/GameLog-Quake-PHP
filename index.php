@@ -1,1 +1,1 @@
-<?php/** * @author Matheus Pisiconeri */require_once './Model/GameClass.php';require_once './Model/KillClass.php';require_once './Controller/ParserLog.php';$controller = new ParserLog("games.log");
+<?php/** * @author Matheus Pisiconeri */require_once './Model/GameClass.php';require_once './Controller/ParserLog.php';$controller = new ParserLog("games.log");

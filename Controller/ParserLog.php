@@ -9,6 +9,7 @@ class ParserLog {
     private $jsonGame = array();
     private $countGame = 0;
     private $game;
+    private $kills;
 
     public function __construct($fileName) {
         $this->fileName = $fileName;
@@ -95,6 +96,7 @@ class ParserLog {
 
     private function initGame($row) {
         $this->game = new GameClass();
+        $this->kills = array();
 
         //add 1 to set gameID
         $this->countGame ++;
@@ -118,11 +120,35 @@ class ParserLog {
     }
 
     private function kill($row) {
-        
+        //add 1 kill
+        $this->game->addKill();
+
+        $value = explode(":", $row['params'], 2);
+        $value = explode("killed", $value[1]);
+        $p_killer = trim($value[0]);
+        $value = explode(" by ", trim($value[1]));
+        $p_killed = trim($value[0]);
+        $mod = trim($value[1]);
+
+        //add killer and killed
+        $this->setKill($p_killer, $p_killed);
     }
 
     private function shutdownGame($row) {
         
+    }
+
+    private function setKill($p_killer, $p_killed) {
+        if ($p_killer == "<world>") {
+            //if killer is <world>, remove 1 kill of the killed
+            $this->kills[$p_killed] = (isset($this->kills[$p_killed]) ? $this->kills[$p_killed] : 0) - 1;
+        } else if ($p_killer == $p_killed) {
+            //if killer killed himself, remove 1 kill
+            $this->kills[$p_killer] = (isset($this->kills[$p_killer]) ? $this->kills[$p_killer] : 0) - 1;
+        } else {
+            //if killer killed opponent, add 1 kill
+            $this->kills[$p_killer] = (isset($this->kills[$p_killer]) ? $this->kills[$p_killer] : 0) + 1;
+        }
     }
 
 }
